@@ -1,0 +1,88 @@
+<!DOCTYPE >
+<!DOCTYPE >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/head :: headerLinks"></th:block> /*/-->
+
+</head>
+<!--/*/ <th:block th:include="fragments/header :: div"></th:block> /*/-->
+<h2>Books</h2>
+<body>
+<div class="main-container col3-layout">
+    <div class="main">
+        <div id="left-sidebar">
+            <!--/*/ <th:block th:include="fragments/leftSidebar :: body"></th:block> /*/-->
+        </div>
+        <div class="col-wrapper">
+            <div class="col-main">
+                <div class="category-products">
+                    <div class="toolbar">
+                        <div class="pager">
+                            <div class="pages">
+                                <strong>Page:</strong>
+                                <ol>
+                                    <li th:each="pageNo : ${#numbers.sequence(1, books.getTotalPages())}"
+                                        th:class="${currPageNo == pageNo} ? 'selected'">
+                                        <a th:href="@{/showBooks(categoryId=${filterDto.categoryId}, page = ${pageNo})} "
+                                           th:if="${pageNo != currPageNo}" th:text="${pageNo}" href=""></a>
+                                        <span th:if="${pageNo == currPageNo}" th:text="${pageNo}"></span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="sorter">
+                            <div class="sort-by">
+                                <form action="/showBooks" method="post">
+                                    <label>Sort By</label>
+                                    <select name="filterDto.sortBy" title="SortBy" id="sortBy" class="select">
+                                        <option value=NAME>Name</option>
+                                        <option value="PRICE">Price</option>
+                                    </select>
+                                    &nbsp;
+                                    <label>Direction</label>
+                                    <select name="filterDto.direction" title="Direction" id="direction" class="select">
+                                        <option value="ASC">Asc</option>
+                                        <option value="DESC">Desc</option>
+                                    </select>
+                                    <input id="go-button" type="submit" name="submit" value="Go!"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="custom-products-grid">
+                        <input type="hidden" value="1" id="qty"/>
+                        <div class="item pull-left" th:each="book : ${books}">
+                            <a th:href="@{/book/__${book.id}__}" class="product-image">
+                                <img th:src="${book.image}" width="135" height="135" alt="Picture">
+                            </a>
+                            <h2 class="product-name" th:text="${book.title}">Title</h2>
+                            <div class="price-box">
+                                                <span class="regular-price" id="product-price-168">
+                                                    <span class="price" th:text="${book.price}"></span>
+                                                    <span class="price">US$</span>
+                                                </span>
+                            </div>
+
+                            <div class="actions">
+                                <a th:href="@{/add-to-cart/__${book.id}__}" class="button btn-cart"
+                                   th:data-value="${book.quantity}">
+                                    Add to Cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" th:src="@{/static/js/bookScript.js}"></script>
+        <div id="rightSidebar">
+            <div th:replace="fragments/rightSidebar :: body(books=${cart})"></div>
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/footer :: div"></th:block> /*/-->
+</body>
+</html>

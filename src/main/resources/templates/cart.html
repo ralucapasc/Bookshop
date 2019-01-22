@@ -1,0 +1,33 @@
+<!DOCTYPE >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/head :: headerLinks"></th:block> /*/-->
+</head>
+<!--/*/ <th:block th:include="fragments/header :: div"></th:block> /*/-->
+<div class="main-container col1-layout">
+    <div class="main">
+        <div class="col-main">
+            <div class="cart">
+                <div class="page-title title-buttons">
+                    <h1>Shopping Cart</h1>
+                    <ul class="checkout-types">
+                        <li>
+                            <button type="button" title="Proceed to Checkout" class="button btn-proceed-checkout btn-checkout" ><span><span>Proceed to Checkout</span></span></button>
+                        </li>
+                    </ul>
+                </div>
+                <form action="" method="post">
+                    <div id="form-cart">
+                        <!--/*/ <th:block th:include="fragments/formCart :: div"></th:block> /*/-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" th:src="@{/static/js/bookScript.js}"></script>
+<!--/*/ <th:block th:include="fragments/footer :: div"></th:block> /*/-->
+</body>
+</html>

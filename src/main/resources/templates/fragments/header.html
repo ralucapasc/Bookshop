@@ -1,0 +1,56 @@
+<div class="wrapper">
+    <div class="page">
+        <div class="header-container">
+            <div class="header">
+                <div class="quick-access">
+                    <form id="search_mini_form" action="books.html" method="get">
+                        <div class="form-search">
+                            <label for="search">Search:</label>
+                            <input id="search" type="text" name="q" value="" class="input-text" maxlength="128"/>
+                            <button type="submit" title="Search" class="button"><span><span>Search</span></span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="welcome">
+                        <p class="welcome-msg" th:text="'Welcome, ' + ${username}"> </p>
+                    </div>
+
+                    <ul class="links">
+                        <li class="first"><a href="#" title="My Account">My Account</a></li>
+
+                        <div sec:authorize="!isAnonymous()">
+                            <li><a th:href="@{/logout}" title="Login">Logout</a></li>
+                        </div>
+
+                        <div sec:authorize="isAnonymous()">
+                            <li><a th:href="@{/login}" title="Login">Log In</a></li>
+                        </div>
+
+                        <div sec:authorize="isAnonymous()">
+                            <li><a th:href="@{/cart}" title="My Cart" class="top-link-cart">My Cart</a></li>
+                        </div>
+
+                        <div sec:authorize="!isAnonymous()">
+                            <li><a th:href="@{/cart}" title="My Cart" class="top-link-cart">My Cart</a></li>
+                        </div>
+
+                        <li class="last"><a href="#" title="Checkout" class="top-link-checkout">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-container">
+            <ul id="nav">
+                <tag th:name="category" title="categories" id="category">
+                    <li class="level0 level-top" th:each="category : ${categories}" th:value="${id}">
+                        <a th:href="@{/showBooks(categoryId=${category.id})}" class="level-top">
+                            <span th:text="${category.name}"></span>
+                        </a>
+                    </li>
+                </tag>
+            </ul>
+        </div>
+    </div>
+</div>

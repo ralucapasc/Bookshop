@@ -1,0 +1,69 @@
+<body>
+<div class="col-left sidebar">
+    <div class="block block-layered-nav">
+        <div class="block-title">
+            <strong><span>Shop By</span></strong>
+        </div>
+        <div class="block-content">
+            <div class="currently">
+                <p class="block-subtitle">Currently Shopping by </p>
+                <ol>
+                    <li>
+                        <span class="label">Price:</span>
+                        <span class="value" th:if="${filterDto.filterInterval} != null"
+                              th:text="${filterDto.filterInterval.start} + ' US$ - ' + ${filterDto.filterInterval.end} + ' US$'">
+                        </span>
+                    </li>
+                    <li>
+                        <span class="label">Availability:</span>
+                        <span class="value" th:if="${filterDto.availability} != null"
+                              th:text="${filterDto.availability.key}"></span>
+                    </li>
+                </ol>
+            </div>
+            <div class="actions"><a th:href="@{/clear-all-filter}" id="clear-all-action">Clear All</a></div>
+            <p class="block-subtitle">Shopping Options</p>
+            <dl id="narrow-by-list">
+                <dt>Price</dt>
+                <dd>
+                    <ol>
+                        <tag th:name="filters" title="filters" id="filters">
+                            <li th:each="filterInterval: ${filterInterval}">
+                                <a th:if="${filterDto.availability != null}"
+                                   th:href="@{/showBooks(categoryId = ${filterDto.categoryId}, filterInterval=${filterInterval.name()},
+                                   availability = ${filterDto.availability}, page = ${filterDto.page})}">
+                                    <span class="price" th:text="${filterInterval.start}"></span> US$ -
+                                    <span class="price" th:text="${filterInterval.end}"></span>
+                                    <span class="price"> US$</span>
+                                </a>
+                                <a th:if="${filterDto.availability == null}"
+                                   th:href="@{/showBooks(categoryId = ${filterDto.categoryId}, filterInterval=${filterInterval.name()}, page = ${filterDto.page})}">
+                                    <span class="price" th:text="${filterInterval.start}"></span> US$ -
+                                    <span class="price" th:text="${filterInterval.end}"></span>
+                                    <span class="price"> US$</span>
+                                </a>
+                            </li>
+                        </tag>
+                    </ol>
+                </dd>
+                <dt>Stock</dt>
+                <dd>
+                    <ol>
+                        <li th:each="availability : ${availability}">
+                            <a th:if="${filterDto.filterInterval != null}"
+                               th:href="@{/showBooks(categoryId = ${filterDto.categoryId}, filterInterval=${filterDto.filterInterval},
+                               availability = ${availability.name()}, page = ${filterDto.page})}"
+                               th:text="${availability.key}">
+                            </a>
+                            <a th:if="${filterDto.filterInterval == null}"
+                               th:href="@{/showBooks(categoryId = ${filterDto.categoryId}, availability = ${availability.name()}, page = ${filterDto.page})}"
+                               th:text="${availability.key}">
+                            </a>
+                        </li>
+                    </ol>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+</body>
