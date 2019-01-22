@@ -1,0 +1,54 @@
+<head>
+
+</head>
+<body>
+<div class="col-right sidebar">
+    <div class="block block-cart">
+        <div class="block-title">
+            <strong><span>My Cart</span></strong>
+        </div>
+        <div class="block-content">
+            <div th:if="${shoppingCartDto.items.isEmpty()}">
+                <p class="empty">You have no items in your shopping cart.</p>
+            </div>
+            <div class="summary">
+                <div th:if="${!shoppingCartDto.items.isEmpty()}">
+                    <p class="amount">There are
+                        <a th:href="@{/cart}" th:text="${shoppingCartDto.items.size()} + ' item(s) '"></a>
+                        in your cart.
+                    </p>
+                    <p class="subtotal" id="cart-subtotal">
+                        <span>Cart Subtotal:
+                            <span th:text="${shoppingCartDto.total} + ' US$' " class="price"></span>
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${!shoppingCartDto.items.isEmpty()}">
+            <div class="actions">
+                <button type="button" title="Checkout" class="button"><span><span>Checkout</span></span></button>
+            </div>
+
+            <p class="block-subtitle">Recently added item(s)</p>
+            <ol id="cart-sidebar" class="mini-products-list">
+                <li class="item" th:each="item : ${shoppingCartDto.items}">
+                    <a th:href="@{/book/__${item.id}__}" title="Product" class="product-image">
+                        <img th:src="${item.book.image}" width="50" height="50" alt="Picture"/>
+                    </a>
+                    <div class="product-details">
+                        <a th:href="@{/remove-item/__${item.book.id}__}" title="Remove This Item"
+                           class="btn-remove btn-remove-item">Remove This Item</a>
+                        <a th:href="@{/cart}" title="Edit item" class="btn-edit">Edit item</a>
+                        <p class="product-name" th:text="${item.book.title}"><a
+                                th:href="@{/book/__${item.id}__}"></a></p>
+                        <strong th:text="${item.qty} + 'x USD'"></strong>
+                        <span class="price" th:text="${item.book.price}"></span>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>
+</body>

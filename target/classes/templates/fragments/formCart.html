@@ -1,0 +1,115 @@
+<div id="form-shopping-cart">
+    <fieldset>
+        <table id="shopping-cart-table" class="data-table cart-table">
+            <colgroup>
+                <col width="1"/>
+                <col/>
+                <col width="1"/>
+                <col width="1"/>
+                <col width="1"/>
+                <col width="1"/>
+                <col width="1"/>
+            </colgroup>
+            <thead>
+            <tr class="first last">
+                <th rowspan="1">&nbsp;</th>
+                <th rowspan="1"><span class="nobr">Product Name</span></th>
+                <th class="a-center" colspan="1"><span class="nobr">Unit Price</span></th>
+                <th rowspan="1" class="a-center">Qty</th>
+                <th class="a-center" colspan="1">Subtotal</th>
+                <th rowspan="1" class="a-center">&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="first odd" th:each="item : ${shoppingCartDto.items}">
+                <td>
+                    <a th:href="@{/book/__${item.book.id}__}" th:title="${item.book.title}" class="product-image">
+                        <img th:src="${item.book.image}" alt="Nine West Women's Lucero Pump" height="75" width="75"/>
+                    </a>
+                </td>
+                <td class="form-cart">
+                    <h2 class="product-name">
+                        <a th:href="@{/book/__${item.book.id}__}" th:text="${item.book.title}"></a>
+                    </h2>
+                </td>
+                <td class="a-right">
+                    <span class="cart-price">
+                        <span class="price" th:text="${item.book.price} + ' US$'"></span>
+                    </span>
+                </td>
+                <td class="a-center">
+                    <input type="text" name="" th:data-quantity="${item.book.quantity}" th:data-value="${item.book.id}" th:data-qty="${item.qty}"
+                           th:value="${item.qty}" size="4" title="Qty" class="qty" maxlength="12"/>
+                </td>
+                <td class="a-right">
+                    <span class="cart-price">
+                        <span class="price" th:text="${item.subtotal} + ' US$'"></span>
+                    </span>
+                </td>
+                <td class="a-center last">
+                    <a th:href="@{/remove-item/cart/__${item.book.id}__}" title="Remove This Item"
+                       class="btn-remove btn-remove-item">Remove This Item</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr class="first last">
+                <td colspan="50" class="a-right last">
+                    <button type="button" title="Continue Shopping" class="button btn-continue">
+                        <a th:href="@{/showBooks}">
+                            <span><span>Continue Shopping</span></span>
+                        </a>
+                    </button>
+                    <button type="submit" name="update_cart_action" value="update_qty" title="Update Shopping Cart"
+                            class="button btn-update">
+                        <a th:href="@{/update-quantity}" class="update-quantity">
+                            <span><span>Update Shopping Cart</span></span>
+                        </a>
+                    </button>
+
+                    <button type="submit" name="update_cart_action" value="empty_cart" title="Clear Shopping Cart"
+                            class="button btn-empty">
+                        <a th:href="@{/remove-all}" class="btn-remove-item">
+                            <span><span>Clear Shopping Cart</span></span>
+                        </a>
+                    </button>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+    <div class="cart-collaterals">
+        <div class="totals">
+            <table id="shopping-cart-totals-table">
+                <colgroup>
+                    <col/>
+                    <col width="1"/>
+                </colgroup>
+                <tfoot>
+                <tr>
+                    <td style="" class="a-right" colspan="1">
+                        <strong>Grand Total</strong>
+                    </td>
+                    <td style="" class="a-right">
+                        <strong><span class="price" th:text="${shoppingCartDto.total} + ' US$'"></span></strong>
+                    </td>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr>
+                    <td style="" class="a-right" colspan="1">Subtotal</td>
+                    <td style="" class="a-right"><span class="price" th:text="${shoppingCartDto.total} + ' US$'"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="checkout-types">
+                <li>
+                    <button type="button" title="Proceed to Checkout" class="button btn-proceed-checkout btn-checkout">
+                        <span><span>Proceed to Checkout</span></span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<!DOCTYPE >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<!--/*/ <th:block th:include="fragments/head :: headerLinks"></th:block> /*/-->
+
+<!--/*/ <th:block th:include="fragments/header :: div"></th:block> /*/-->
+
+<body>
+<div class="main-container col2-right-layout">
+    <div class="main">
+        <div class="breadcrumbs">
+            <ul>
+                <li class="home">
+                    <a th:href="@{/showBooks}" title="Go to Home Page">Home</a>
+                    <span>/ </span>
+                </li>
+                <li class="category10">
+                    <a th:href="@{/showBooks(categoryId=${book.categoryId})}" title="" th:text="'category' + ${book.categoryId}"></a>
+                    <span>/ </span>
+                </li>
+                <li class="product">
+                    <strong th:text="${book.title}"></strong>
+                </li>
+            </ul>
+        </div>
+        <div class="col-main">
+            <div class="product-view">
+                <div class="product-essential">
+                    <form action="" method="post" id="product_addtocart_form" th:object="${book}">
+                        <div class="product-shop">
+                            <div class="product-name">
+                                <h1 th:text="${book.title}"></h1>
+                            </div>
+                            <div class="short-description"></div>
+                            <p class="availability in-stock">Availability: <span>In stock</span></p>
+                            <div class="price-box">
+                                <span class="regular-price" id="product-price-MyProductID">
+                                    <span class="price">USD</span>
+                                    <span class="price" th:text=" ${book.price}"></span>
+                                </span>
+                            </div>
+                            <div class="add-to-box">
+                                <div class="add-to-cart">
+                                    <label for="qty">Qty:</label>
+                                    <input type="text" name="qty" id="qty" maxlength="12" value="1" title="Qty"
+                                           class="input-text qty"/>
+                                    <a th:href="@{/add-to-cart/__${book.id}__}" class="button btn-cart"
+                                       th:data-value="${book.quantity}">
+                                        Add to Cart
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-img-box">
+                            <p class="product-image product-image-zoom">
+                                <img th:src="${book.image}" id="image" th:alt="${title}" th:title="${title}"/>
+                            </p>
+                        </div>
+                        <div class="clearer"></div>
+                    </form>
+                </div>
+                <div class="product-collateral">
+                    <div class="box-collateral box-description">
+                        <h2>Details</h2>
+                        <div class="std" th:text="${book.details}"></div>
+                    </div>
+                    <p><a th:href="@{/showBooks}"><span>&laquo; Back to list</span></a></p>
+                    <div class="box-collateral box-up-sell">
+                        <h2>You may also be interested in the following product(s)</h2>
+                        <table class="products-grid" id="upsell-product-table">
+                            <tr>
+                                <td th:each="randomBook : ${randomBooks}">
+                                    <a th:href="@{/book/} + ${randomBook.id}" title="Red Furniture Set"
+                                       class="product-image"><img
+                                            th:src="${randomBook.image}" width="125" height="125"
+                                            alt="Red Furniture Set"/></a>
+                                    <h3 class="product-name"><a th:href="@{/book/__${randomBook.id}__}"
+                                                                title="Red Furniture Set"
+                                                                th:text="${randomBook.title}"></a>
+                                    </h3>
+                                    <div class="price-box">
+                                        <p class="minimal-price">
+                                            <span class="price-label">Starting at:</span>
+                                            <span class="price">USD</span>
+                                            <span class="price" id="product-minimal-price-54-upsell" th:text="${randomBook.price}"></span>
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" th:src="@{/static/js/bookScript.js}"></script>
+        <div id="rightSidebar">
+            <div th:replace="fragments/rightSidebar :: body(books=${cart})"></div>
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/footer :: div"></th:block> /*/-->
+</body>
+</html>

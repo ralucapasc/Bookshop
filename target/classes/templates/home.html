@@ -1,0 +1,47 @@
+<!DOCTYPE >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/head :: headerLinks"></th:block> /*/-->
+
+</head>
+<!--/*/ <th:block th:include="fragments/header :: div"></th:block> /*/-->
+<h2>Books</h2>
+<body>
+<div class="main-container col3-layout">
+    <div class="main">
+        <div class="main-container col3-layout">
+            <div class="main">
+                <div class="col-wrapper">
+                    <div class="col-main">
+                        <div class="box best-selling">
+                            <div id = "homeBooks">
+                                <div id = "item-home-page" class="odd" th:each="book : ${books}">
+                                    <a th:href="@{/book/__${book.id}__}">
+                                        <img width="95" height="120" alt="" th:src="${book.image}" class="product-img">
+                                    </a>
+                                    <div class="product-description">
+                                        <p><a th:href="@{/book/__${book.id}__}" th:text="${book.title}"></a></p>
+                                        <p>
+                                            See all from
+                                            <a th:href="@{/showBooks(categoryId=${book.categoryId})}"
+                                               th:text="'category' + ${book.categoryId}">
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript" th:src="@{/static/js/bookScript.js}"></script>
+                <div id="rightSidebar">
+                    <div th:replace="fragments/rightSidebar :: body(books=${cart})"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/*/ <th:block th:include="fragments/footer :: div"></th:block> /*/-->
+</body>
+</html>
